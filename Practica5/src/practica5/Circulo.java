@@ -9,7 +9,7 @@ package practica5;
  *
  * @author david
  */
-public class Circulo extends Figura{
+public class Circulo extends Figura implements Comparable<Figura>{
     
     private double radio;
     
@@ -49,7 +49,10 @@ public class Circulo extends Figura{
         
         return cadena;
     }
-    
-    
-    
+
+    @Override
+    public int compareTo(Figura figura) {
+        return super.compareTo(figura);
+        
+    } 
 }

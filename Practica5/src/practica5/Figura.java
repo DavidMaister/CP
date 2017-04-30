@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author david
  */
-public abstract class Figura {
+public abstract class Figura{
     
     private final Date fechaCreacion;
     
@@ -30,6 +30,15 @@ public abstract class Figura {
         cadena = this.getClass().getSimpleName()+" creado el "+fechaCreacion+"\n"+"Area: "+getArea()+"\n"+"Perimetro: "+getPerimetro();
         
         return cadena;
+    }
+    
+    public int compareTo(Figura figura){
+        int resultado;
+        resultado = (int) (getArea() - figura.getArea());
+        if(resultado < 1 && resultado > 0){
+            resultado = 1;      //evitamos que sea con decimales para el caso menor que 1
+        }
+        return resultado;
     }
     
     

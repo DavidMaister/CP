@@ -9,7 +9,7 @@ package practica5;
  *
  * @author david
  */
-public class Rectangulo extends Figura{
+public class Rectangulo extends Figura implements Comparable<Figura>{
     
     private double ancho;
     private double alto;
@@ -60,5 +60,10 @@ public class Rectangulo extends Figura{
         return cadena;
     }
     
+    @Override
+    public int compareTo(Figura figura) {
+        return super.compareTo(figura);
+        
+    }
     
 }
