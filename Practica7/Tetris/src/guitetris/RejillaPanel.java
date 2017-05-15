@@ -9,6 +9,8 @@ import data.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +41,7 @@ public class RejillaPanel extends javax.swing.JPanel {
     * Dibuja cada una de las celdas de la matriz bidimensional de la Rejilla.
     * Cada celda puede estar ocupada por BLOQUE (muro exterior) o PIEZA
     * (elemento de una Figura)
-    * @param el Graphics donde se dibujar´a
+    * @param g Graphics donde se dibujar´a
     */
     public void dibujaRejilla(java.awt.Graphics g){
         int i,j;
@@ -93,10 +95,32 @@ public class RejillaPanel extends javax.swing.JPanel {
             int yoffset=fig.getYOrigen()*anchoCelda;
             for(int i=0;i<fig.getNElements();i++){
                 elemento=fig.getElementAt(i);
-                g.setColor(Color.YELLOW);
+                switch(fig.getTipoFigura()){
+                    case 0:
+                        g.setColor(Color.BLUE);
+                    break;
+                    case 1:
+                        g.setColor(Color.GREEN);
+                    break;
+                    case 2:
+                        g.setColor(Color.GREEN);
+                    break;
+                    case 3:
+                        g.setColor(Color.RED);
+                    break;
+                    case 4:
+                        g.setColor(Color.YELLOW);
+                    break;
+                    case 5:
+                        g.setColor(Color.MAGENTA);
+                    break;
+                    case 6:
+                        g.setColor(Color.MAGENTA);
+                    break;
+                }
                 g.fillRect(xoffset+elemento.getColumna()*anchoCelda,
                 yoffset+elemento.getFila()*anchoCelda,anchoCelda,anchoCelda);
-                g.setColor(Color.RED);
+                g.setColor(Color.BLACK);
                 g.drawRect(xoffset+elemento.getColumna()*anchoCelda,
                 yoffset+elemento.getFila()*anchoCelda, anchoCelda,anchoCelda);
             }
@@ -162,6 +186,12 @@ public class RejillaPanel extends javax.swing.JPanel {
                 if(frame.getPanel()!=null)
                     frame.getPanel().repaint();
             }
+        }
+        else if(evt.getKeyCode() == KeyEvent.VK_SPACE){
+            if(frame.getMueve().getParado())
+                frame.getMueve().reanudar();
+            else 
+                frame.getMueve().suspender();
         }
     }//GEN-LAST:event_keyPressed
 

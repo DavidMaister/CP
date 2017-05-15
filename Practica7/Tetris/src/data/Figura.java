@@ -26,6 +26,7 @@ public class Figura {
     private Vector<Elemento> elements;
     private int xorigen;
     private int yorigen;
+    private int tipoFigura;
     
     /** 
      * Creates a new instance of Figura 
@@ -49,45 +50,45 @@ public class Figura {
     public static Figura nuevaFigura(){
         Figura fig=null;
         java.util.Random rand=new java.util.Random();
-        int tipoFigura=rand.nextInt(7);
+        int tipodeFigura=rand.nextInt(7);
         
-        if(tipoFigura==0){
+        if(tipodeFigura==0){
             fig = new Figura(
                     0x0000,
                     0x0FF0,
                     0x0FF0,
                     0x0000);
-        }else if(tipoFigura==1){
+        }else if(tipodeFigura==1){
             fig = new Figura(
                     0x0F00,
                     0x0F00,
                     0x0FF0,
                     0x0000);
-        }else if(tipoFigura==2){
+        }else if(tipodeFigura==2){
             fig = new Figura(
                     0x00F0,
                     0x00F0,
                     0x0FF0,
                     0x0000);
-        }else if(tipoFigura==3){
+        }else if(tipodeFigura==3){
             fig = new Figura(
                     0x0000,
                     0x0F00,
                     0xFFF0,
                     0x0000);
-        }else if(tipoFigura==4){
+        }else if(tipodeFigura==4){
             fig = new Figura(
                     0x0F00,
                     0x0F00,
                     0x0F00,
                     0x0F00);
-        }else if(tipoFigura==5){
+        }else if(tipodeFigura==5){
             fig = new Figura(
                     0x0F00,
                     0x0FF0,
                     0x00F0,
                     0x0000);
-        }else if(tipoFigura==6){
+        }else if(tipodeFigura==6){
             fig = new Figura(
                     0x00F0,
                     0x0FF0,
@@ -96,8 +97,17 @@ public class Figura {
         }
         fig.xorigen=3;
         fig.yorigen=0;
+        fig.setTipoFigura(tipodeFigura);
         
         return fig;
+    }
+    
+    public void setTipoFigura(int tipo){
+        tipoFigura = tipo;
+    }
+    
+    public int getTipoFigura(){
+        return tipoFigura;
     }
     
     /**

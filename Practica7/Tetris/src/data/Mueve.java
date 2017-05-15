@@ -12,6 +12,7 @@ public class Mueve implements Runnable{
     private boolean continuar;
     private boolean suspendFlag;
     private TetrisFrame frame;
+    private int nivelActual;
        
     /**
      * Constructor de la clase, que inicializa la referencia utilizadas por
@@ -22,6 +23,7 @@ public class Mueve implements Runnable{
     public Mueve(TetrisFrame fr,int nivel){
         frame=fr;
         delay= actualizaRetardo(nivel);
+        nivelActual = nivel;
         continuar=true;
         suspendFlag=true;
     }
@@ -35,6 +37,7 @@ public class Mueve implements Runnable{
      * (celdas) en la Rejilla y se genera una nueva Figura.
      */
     public void run(){
+        int cuentaFichas = 0;
         try{
             while(continuar){
                 synchronized(this){
@@ -53,8 +56,17 @@ public class Mueve implements Runnable{
                     frame.getRejilla().eliminarFilasLlenas();
                     if(frame.getPanel()!=null)
                         frame.getPanel().repaint();
-                    if(!valor)
+                    if(!valor){
                         frame.nuevaFigura();
+                        //introducimos que vaya mas rapido conforme van cayendo las fichas
+                        //cada 5 fichas se incrementa en 1 el nivel
+                        cuentaFichas++;
+                        if(cuentaFichas % 5 == 0){
+                            nivelActual++;
+                            delay = actualizaRetardo(nivelActual);
+                        }
+                    }
+                    
                     else{
                         System.out.println("He llegado al final");
                         continuar=false;

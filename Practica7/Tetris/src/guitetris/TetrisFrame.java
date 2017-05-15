@@ -170,6 +170,14 @@ public class TetrisFrame extends javax.swing.JFrame {
     }
     
     /**
+     * Obtiene la clase mueve.
+     * @return 
+     */
+    public Mueve getMueve(){
+        return mueve;
+    }
+    
+    /**
     * Obtiene una nueva figura cuyo tipo es seleccionado de forma aleatoria
     */
     public void nuevaFigura(){
