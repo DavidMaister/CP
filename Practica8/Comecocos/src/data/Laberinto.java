@@ -14,11 +14,36 @@ package data;
  */
 public class Laberinto {
     
+    //valores antiguos
     public static final char VACIA  = ' ';
-    public static final char BLOQUE = 'B';
-    public static final char PEQUENA = '.';
+    
+    public static final char PEQUENA = '.'; //mismos para los nuevos
     public static final char GRANDE = 'o';
     public static final char PUERTA = 'P';
+    
+    //valores nuevos
+    public static final char A = 'A';
+    public static final char a = 'a';
+    public static final char B = 'B';
+    public static final char b = 'b';
+    public static final char D = 'D';
+    public static final char d = 'd';
+    public static final char e = 'e';
+    public static final char f = 'f';
+    public static final char g = 'g';
+    public static final char h = 'h';
+    public static final char I = 'I';
+    public static final char i = 'i';
+    public static final char m = 'm';
+    public static final char n = 'n';
+    public static final char UNO = '1';
+    public static final char DOS = '2';
+    public static final char TRES = '3';
+    public static final char CUATRO = '4';
+    public static final char CINCO = '5';
+    public static final char SEIS = '6';
+    public static final char SIETE = '7';
+    public static final char OCHO = '8';
     
     
     private int anchura = 28;
@@ -48,51 +73,52 @@ public class Laberinto {
     public int getAltura(){
         return altura;
     }
-       
+    
     /**
-     * Establece el tipo de celda en las coordenadas x e y de esta Laberinto
+     * Establece el tipo de celda en las coordenadas x e y de este Laberinto
      *  @param x coordenada x (columna)
      * @param y coordenada y (fila)
      * @param valor el tipo de celda (VACIA, PUERTA, BLOQUE, grande o pequeña)
      */
     public void assignTipoCelda(int x,int y,char valor){
-        celdas[x][y]= valor ;
+        celdas[x][y]= valor;
     }
     
-    /**
-     * String que define el estado inicial del laberinto
-     */
+    
+    
+    
     private final static String rejillaInicial[]={
-        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
-        "B............BB............B",
-        "B.BBBB.BBBBB.BB.BBBBB.BBBB.B",
-        "BoBBBB.BBBBB.BB.BBBBB.BBBBoB",
-        "B.BBBB.BBBBB.BB.BBBBB.BBBB.B",
-        "B..........................B",
-        "B.BBBB.BB.BBBBBBBB.BB.BBBB.B",
-        "B.BBBB.BB.BBBBBBBB.BB.BBBB.B",
-        "B......BB....BB....BB......B",
-        "BBBBBB.BBBBB BB BBBBB.BBBBBB",
-        "     B.BBBBB BB BBBBB.B     ",
-        "     B.BB          BB.B     ",
-        "     B.BB BBBPPBBB BB.B     ",
-        "BBBBBB.BB B      B BB.BBBBBB",
-        "      .   B      B   .      ",
-        "BBBBBB.BB B      B BB.BBBBBB",
-        "     B.BB BBBBBBBB BB.B     ",
-        "     B.BB          BB.B     ",
-        "BBBBBB.BB BBBBBBBB BB.BBBBBB",
-        "B............BB............B",
-        "B.BBBB.BBBBB.BB.BBBBB.BBBB.B",
-        "B.BBBB.BBBBB.BB.BBBBB.BBBB.B",
-        "Bo..BB................BB..oB",
-        "BBB.BB.BB.BBBBBBBB.BB.BB.BBB",
-        "BBB.BB.BB.BBBBBBBB.BB.BB.BBB",
-        "B......BB....BB....BB......B",
-        "B.BBBBBBBBBB.BB.BBBBBBBBBB.B",
-        "B.BBBBBBBBBB.BB.BBBBBBBBBB.B",
-        "B..........................B",
-        "BBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+        "1AAAAAAAAAAAAfeAAAAAAAAAAAA2",
+        "I............di............D",
+        "I.5BB6.5BBB6.di.5BBB6.5BB6.D",
+        "IoD  I.D   I.di.D   I.D  IoD",
+        "I.7AA8.7AAA8.78.7AAA8.7AA8.D",
+        "I..........................D",
+        "I.5bb6.56.5bbbbbb6.56.5bb6.D",
+        "I.6aa8.di.7aa65aa8.di.7aa8.D",
+        "I......di....di....di......D",
+        "3BBBB6.d7bb6 di 5bb8i.5BBBB4",
+        "     I.d5aa8 78 7aa6i.D     ",
+        "     I.di          di.D     ",
+        "     I.di 5BBPPBB6 di.D     ",
+        "AAAAA8.78 D      I 78.7AAAAA",
+        "      .   D      I   .      ",
+        "BBBBB6.56 D      I 56.5BBBBB",
+        "     I.di 7AAAAAA8 di.D     ",
+        "     I.di          di.D     ",
+        "     I.di 5bbbbbb6 di.D     ",
+        "1AAAA8.78 7aa65aa8 78.7AAAA2",
+        "I............di............D",
+        "I.5bb6.5bbb6.di.5bbb6.5bb6.D",
+        "I.7a6i.7aaa8.78.7aaa8.d5a8.D",
+        "Io..di................di..oD",
+        "gb6.di.56.5bbbbbb6.56.di.5bm",
+        "ha8.78.di.7aa65aa8.di.78.7an",
+        "I......di....di....di......D",
+        "I.5bbbb87bb6.di.5bb87bbbb6.D",
+        "I.7aaaaaaaa8.78.7aaaaaaaa8.D",
+        "I..........................D",
+        "3BBBBBBBBBBBBBBBBBBBBBBBBBB4"
     };
     
     /**
@@ -105,10 +131,8 @@ public class Laberinto {
         
         for(i=0; i < rejillaInicial.length; i++){
             for(j=0; j < rejillaInicial[i].length();j++){
-                System.out.print(rejillaInicial[i].charAt(j));
                 celdas[i][j]= rejillaInicial[i].charAt(j);
             }
-            System.out.println();
         }
     }
     
@@ -132,34 +156,42 @@ public class Laberinto {
      * @return true si se choca, false en caso contrario
      */
     public boolean seChoca(Comecocos fig, int direccion){
-        Elemento elemento;
-        
+        boolean seChoca = true;
+        //ojo porque la manera de x e y, no es la misma que la busqueda en una matriz
+        int xPac = fig.getX();
+        int yPac = fig.getY();
+        int xMatriz = yPac;
+        int yMatriz = xPac;
+        int xSigMatriz = xMatriz;   //por incializar
+        int ySigMatriz = yMatriz;   //por inicializar
         //hay que tener en cuenta como funciona getTipoCelda, devuelve las coordenadas de una matriz,
         //no funciona igual que los ejes x, y.
-        if(direccion == Comecocos.IZQUIERDA){
-            if(getTipoCelda(fig.getX(), fig.getY() - 1) == BLOQUE || getTipoCelda(fig.getX(), fig.getY() - 1) == PUERTA){
-                return true;
-            }
-        }
-        
-        if(direccion == Comecocos.DERECHA){
-            if(getTipoCelda(fig.getX(), fig.getY() + 1) == BLOQUE || getTipoCelda(fig.getX(), fig.getY() + 1) == PUERTA){
-                return true;
-            }
-        }
-        
+        //vamos a escoger con cuidado cuales son  la x y la y siguientes en la matriz
         if(direccion == Comecocos.ABAJO){
-            if(getTipoCelda(fig.getX() + 1, fig.getY()) == BLOQUE || getTipoCelda(fig.getX() + 1, fig.getY()) == PUERTA){
-                return true;
-            }
+            xSigMatriz = xMatriz + 1;
+            ySigMatriz = yMatriz;
+        } else if(direccion == Comecocos.ARRIBA){
+            xSigMatriz = xMatriz - 1;
+            ySigMatriz = yMatriz;
+        } else if(direccion == Comecocos.DERECHA){
+            xSigMatriz = xMatriz;
+            ySigMatriz = yMatriz + 1;
+        } else if(direccion == Comecocos.IZQUIERDA){
+            xSigMatriz = xMatriz;
+            ySigMatriz = yMatriz - 1;
         }
         
-        if(direccion == Comecocos.ARRIBA){
-            if(getTipoCelda(fig.getX() - 1, fig.getY()) == BLOQUE || getTipoCelda(fig.getX() - 1, fig.getY()) == PUERTA){
-                return true;
-            }
+        //comprobamos si se choca o no
+        if((getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.VACIA) || (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.PEQUENA)  ||
+           (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.GRANDE)){
+            System.out.println("Celda siguiente: " + getTipoCelda(xSigMatriz, ySigMatriz));
+            seChoca = false;
         }
         
-        return false;
+        System.out.println("Funcion seChoca "+seChoca);
+        return seChoca;
     }
 }
+
+
+

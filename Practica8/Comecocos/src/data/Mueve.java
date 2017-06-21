@@ -6,6 +6,8 @@
 package data;
 
 import guicomecocos.ComecocosFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Esta clase implementa una hebra que hace que se mueva continuamente el comecocos.
@@ -33,6 +35,39 @@ public class Mueve implements Runnable{
         continuar=true;
         suspendFlag=true;
     }
+    
+    
+    /**
+     * Metodo que ejecuta la hebra principal que haga que se muevan los 
+     * componentes del comecocos. Es un bucle que provoca que se muevan
+     * los elementos.
+     */
+    public void run(){
+        System.out.println("Empieza run");
+        
+        try {
+            
+            while(continuar){
+                
+            Thread.sleep(800);
+            if(!frame.getLaberinto().seChoca(frame.getComecocos(), frame.getComecocos().getDireccion())){
+                System.out.println("Se mueve");
+                frame.getComecocos().mueve();
+                System.out.println("PacMan esta en: "+frame.getComecocos().getX()+", " +frame.getComecocos().getY());
+            }
+            if(frame.getLaberinto()!=null)
+                frame.getPanel().repaint();
+            
+            
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Mueve.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Excepcion en la mueve");
+        }
+        
+    }
+    
+    
     
     
 

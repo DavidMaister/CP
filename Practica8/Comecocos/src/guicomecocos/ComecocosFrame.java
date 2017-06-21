@@ -15,6 +15,7 @@ public class ComecocosFrame extends javax.swing.JFrame {
     
     private Laberinto laberinto;
     private Comecocos comecocos;
+    private Mueve mueve;
 
     /**
      * Creates new form ComecocosFrame
@@ -24,6 +25,9 @@ public class ComecocosFrame extends javax.swing.JFrame {
         laberinto = new Laberinto();
         laberinto.initRejilla();
         comecocos = new Comecocos();
+        mueve = new Mueve(this, 1);
+        inicializaJuego();
+        
     }
 
     /**
@@ -138,6 +142,20 @@ public class ComecocosFrame extends javax.swing.JFrame {
     }
     
     /**
+    * Genera una nueva Figura de tipo aleatorio
+    * y crea la hebra que ejecuta
+    * la tarea de mover la figura actual.
+    * */
+    private void inicializaJuego() {
+        if(mueve==null){
+            mueve=new Mueve(this,2);
+        }
+        Thread t=new Thread(mueve);
+        t.start();
+        //mueve.reanudar();
+    }
+    
+    /**
     * Obtiene una referencia a la Rejilla del juego
     * @return una referencia a la Rejilla del juego
     */
@@ -147,6 +165,13 @@ public class ComecocosFrame extends javax.swing.JFrame {
     
     public Comecocos getComecocos(){
         return comecocos;
+    }
+    /**
+    * Obtiene una referencia al panel donde se dibujan las piezas del juego
+    * @return una referencia al panel del juego
+    */
+    public ComecocosPanel getPanel(){
+        return comecocosPanel1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
