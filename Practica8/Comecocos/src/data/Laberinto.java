@@ -48,6 +48,8 @@ public class Laberinto {
     
     private int anchura = 28;
     private int altura = 31;
+    private int puntuacion = 0;
+    private boolean comestible;
     
     private char[][] celdas;
     
@@ -56,6 +58,7 @@ public class Laberinto {
      */
     public Laberinto(){
         celdas= new char[altura][anchura];
+        comestible = false;
     }
     
     /**
@@ -142,9 +145,16 @@ public class Laberinto {
      * @param y coordenada y (fila)
      * @return el tipo de Celda en la coordenada x,y.
      */
-    
     public char getTipoCelda(int x,int y){
         return celdas[x][y];
+    }
+    
+    /**
+     * Devuelve el estado actual. (Pac persigue a fan, o fantasmas a pac).
+     * @return true si es estado comestible o false si no
+     */
+    public boolean getComestible(){
+        return comestible;
     }
     
     
@@ -181,15 +191,111 @@ public class Laberinto {
             ySigMatriz = yMatriz - 1;
         }
         
+        if(xSigMatriz >= altura || xSigMatriz < 0 || ySigMatriz >= anchura || ySigMatriz < 0){
+            System.out.println("Alcanzado limite del mapa");
+            return true;
+        }
+        
         //comprobamos si se choca o no
         if((getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.VACIA) || (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.PEQUENA)  ||
            (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.GRANDE)){
-            System.out.println("Celda siguiente: " + getTipoCelda(xSigMatriz, ySigMatriz));
             seChoca = false;
         }
-        
-        System.out.println("Funcion seChoca "+seChoca);
         return seChoca;
+    }
+    
+    
+    /**
+     * Indica si al mover la figura una celda según la direccion indicada, se chocará
+     * @param fig la Figura que queremos comprobar si se chocará
+     * @param direccion de movimiento (Figura.ABAJO,Figura.DERECHA o FIGURA.IZQUIERDA)
+     * @return true si se choca, false en caso contrario
+     */
+    public boolean seChoca(Fantasma fig, int direccion){
+        boolean seChoca = true;
+        //ojo porque la manera de x e y, no es la misma que la busqueda en una matriz
+        int xPac = fig.getX();
+        int yPac = fig.getY();
+        int xMatriz = yPac;
+        int yMatriz = xPac;
+        int xSigMatriz = xMatriz;   //por incializar
+        int ySigMatriz = yMatriz;   //por inicializar
+        //hay que tener en cuenta como funciona getTipoCelda, devuelve las coordenadas de una matriz,
+        //no funciona igual que los ejes x, y.
+        //vamos a escoger con cuidado cuales son  la x y la y siguientes en la matriz
+        if(direccion == Comecocos.ABAJO){
+            xSigMatriz = xMatriz + 1;
+            ySigMatriz = yMatriz;
+        } else if(direccion == Comecocos.ARRIBA){
+            xSigMatriz = xMatriz - 1;
+            ySigMatriz = yMatriz;
+        } else if(direccion == Comecocos.DERECHA){
+            xSigMatriz = xMatriz;
+            ySigMatriz = yMatriz + 1;
+        } else if(direccion == Comecocos.IZQUIERDA){
+            xSigMatriz = xMatriz;
+            ySigMatriz = yMatriz - 1;
+        }
+        
+        if(xSigMatriz >= altura || xSigMatriz < 0 || ySigMatriz >= anchura || ySigMatriz < 0){
+            System.out.println("Alcanzado limite del mapa");
+            return true;
+        }
+        
+        //comprobamos si se choca o no
+        if((getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.VACIA) || (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.PEQUENA)  ||
+           (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.GRANDE || (getTipoCelda(xSigMatriz, ySigMatriz) == Laberinto.PUERTA))){
+            seChoca = false;
+        }
+        return seChoca;
+    }
+    
+    
+    /**
+     * Metodo que actualiza el laberinto en caso de que pacman pase por un punto.
+     * Si pasa por un punto, pequeño o grande, se le suma 10 o 50 puntos, respectivamente
+     * a la puntuacion. Ademas cambia el laberinto de manera que queda vacia la
+     * celda por la que ha pasado
+     * @param coco Comecocos en juego, necesitamos saber sus coordenadas
+     * @return devuelve el numero de puntuacion añadido tras el paso por la celda en la que se encuentra el comecocos
+     */
+    public int actualizaMapa(Comecocos coco){
+        int xMatriz = coco.getY();
+        int yMatriz = coco.getX();
+        
+        if(getTipoCelda(xMatriz, yMatriz) == Laberinto.PEQUENA){
+            puntuacion = puntuacion + 10;
+            assignTipoCelda(xMatriz, yMatriz, Laberinto.VACIA);
+            return 10;
+        } else if(getTipoCelda(xMatriz, yMatriz) == Laberinto.GRANDE){
+            puntuacion = puntuacion + 50;
+            assignTipoCelda(xMatriz, yMatriz, Laberinto.VACIA);
+            return 50;
+        }
+        return 0;
+    }
+    
+    /**
+     * Metodo para aumentar puntos
+     * @param puntos cantidad de puntos a aumentar
+     */
+    public void aumentaPuntuacion(int puntos){
+        puntuacion = puntuacion + puntos;
+    }
+    
+    /**
+     * Se comprueba si se ha acabado el nivel
+     * @return devuelve true si se acaba nivel y false si no
+     */
+    public boolean finNivel(){
+        for(int i=0; i < rejillaInicial.length; i++){
+            for(int j=0; j < rejillaInicial[i].length();j++){
+                if(celdas[i][j] == Laberinto.PEQUENA || celdas[i][j] == Laberinto.GRANDE){
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }
 

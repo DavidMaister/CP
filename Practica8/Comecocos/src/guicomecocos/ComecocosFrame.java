@@ -16,6 +16,10 @@ public class ComecocosFrame extends javax.swing.JFrame {
     private Laberinto laberinto;
     private Comecocos comecocos;
     private Mueve mueve;
+    private Fantasma fantasmaAmarillo;
+    private Fantasma fantasmaAzul;
+    private Fantasma fantasmaRojo;
+    private Fantasma fantasmaRosa;
 
     /**
      * Creates new form ComecocosFrame
@@ -25,6 +29,12 @@ public class ComecocosFrame extends javax.swing.JFrame {
         laberinto = new Laberinto();
         laberinto.initRejilla();
         comecocos = new Comecocos();
+        fantasmaAmarillo = new Fantasma(Fantasma.AMARILLO);
+        fantasmaAzul = new Fantasma(Fantasma.AZUL);
+        fantasmaRojo = new Fantasma(Fantasma.ROJO); 
+        fantasmaRosa = new Fantasma(Fantasma.ROSA);
+
+
         mueve = new Mueve(this, 1);
         inicializaJuego();
         
@@ -40,10 +50,11 @@ public class ComecocosFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         comecocosPanel1 = new ComecocosPanel(this);
+        Pausa = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        FileMenu = new javax.swing.JMenu();
+        NewItem = new javax.swing.JMenuItem();
+        ExitItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,21 +72,38 @@ public class ComecocosFrame extends javax.swing.JFrame {
             .addGap(0, 620, Short.MAX_VALUE)
         );
 
-        jMenu1.setMnemonic('F');
-        jMenu1.setText("File");
-        jMenu1.setToolTipText("File");
+        Pausa.setText("Pausa");
+        Pausa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PausaActionPerformed(evt);
+            }
+        });
 
-        jMenuItem1.setMnemonic('N');
-        jMenuItem1.setText("New");
-        jMenuItem1.setToolTipText("New");
-        jMenu1.add(jMenuItem1);
+        FileMenu.setMnemonic('F');
+        FileMenu.setText("File");
+        FileMenu.setToolTipText("File");
 
-        jMenuItem2.setMnemonic('X');
-        jMenuItem2.setText("Exit");
-        jMenuItem2.setToolTipText("Exit");
-        jMenu1.add(jMenuItem2);
+        NewItem.setMnemonic('N');
+        NewItem.setText("New");
+        NewItem.setToolTipText("New");
+        NewItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NewItemActionPerformed(evt);
+            }
+        });
+        FileMenu.add(NewItem);
 
-        jMenuBar1.add(jMenu1);
+        ExitItem.setMnemonic('X');
+        ExitItem.setText("Exit");
+        ExitItem.setToolTipText("Exit");
+        ExitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitItemActionPerformed(evt);
+            }
+        });
+        FileMenu.add(ExitItem);
+
+        jMenuBar1.add(FileMenu);
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
@@ -86,25 +114,43 @@ public class ComecocosFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Pausa)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 24, Short.MAX_VALUE)
+                .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 644, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Pausa)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ExitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitItemActionPerformed
+
+    private void NewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewItemActionPerformed
+        laberinto.initRejilla();
+        inicializaJuego();
+        
+    }//GEN-LAST:event_NewItemActionPerformed
+
+    private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
+        if(mueve.getParado() == true)
+                mueve.reanudar();
+            else
+                mueve.suspender();
+        
+    }//GEN-LAST:event_PausaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,9 +188,8 @@ public class ComecocosFrame extends javax.swing.JFrame {
     }
     
     /**
-    * Genera una nueva Figura de tipo aleatorio
-    * y crea la hebra que ejecuta
-    * la tarea de mover la figura actual.
+    * Crea la hebra que ejecuta
+    * el movimiento del comecocos
     * */
     private void inicializaJuego() {
         if(mueve==null){
@@ -152,7 +197,7 @@ public class ComecocosFrame extends javax.swing.JFrame {
         }
         Thread t=new Thread(mueve);
         t.start();
-        //mueve.reanudar();
+        mueve.reanudar();
     }
     
     /**
@@ -163,9 +208,22 @@ public class ComecocosFrame extends javax.swing.JFrame {
         return laberinto;
     }
     
+    /**
+    * Obtiene una referencia del comecocos del juego
+    * @return una referencia del comecocos del juego
+    */
     public Comecocos getComecocos(){
         return comecocos;
     }
+    
+    /**
+    * Obtiene una referencia del objeto mueve del juego
+    * @return una referencia del objeto mueve del juego
+    */
+    public Mueve getMueve(){
+        return mueve;
+    }
+    
     /**
     * Obtiene una referencia al panel donde se dibujan las piezas del juego
     * @return una referencia al panel del juego
@@ -173,13 +231,46 @@ public class ComecocosFrame extends javax.swing.JFrame {
     public ComecocosPanel getPanel(){
         return comecocosPanel1;
     }
+    
+    /**
+     * Devuelve el fantasma amarillo
+     * @return fantasma amarillo
+     */
+    public Fantasma getAmarillo(){
+        return fantasmaAmarillo;
+    }
+    
+    /**
+     * Devuelve el fantasma azul
+     * @return fantasma azul
+     */
+    public Fantasma getAzul(){
+        return fantasmaAzul;
+    }
+    
+    /**
+     * Devuelve el fantasma rojo
+     * @return fantasma rojo
+     */
+    public Fantasma getRojo(){
+        return fantasmaRojo;
+    }
+    
+    /**
+     * Devuelve el fantasma rosa
+     * @return fantasma rosa
+     */
+    public Fantasma getRosa(){
+        return fantasmaRosa;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ExitItem;
+    private javax.swing.JMenu FileMenu;
+    private javax.swing.JMenuItem NewItem;
+    private javax.swing.JButton Pausa;
     private guicomecocos.ComecocosPanel comecocosPanel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

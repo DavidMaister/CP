@@ -46,8 +46,6 @@ public class ComecocosPanel extends javax.swing.JPanel {
         
         for(i=0;i<laberinto.getAnchura();i++){
             for(j=0;j<laberinto.getAltura();j++){
-                g.setColor(Color.red);
-                g.drawLine(0, 0, 0, anchoCelda);
                 //para cada objeto dibujamos uno distinto
                 if(laberinto.getTipoCelda(j,i) == Laberinto.VACIA){
                     //no hay nada
@@ -229,6 +227,10 @@ public class ComecocosPanel extends javax.swing.JPanel {
         g.fillRect(0,0,getWidth(),getHeight());
         dibujaRejilla(g);
         dibujaCoco(frame.getComecocos(),g);
+        dibujaFantasma(g, frame.getAmarillo());
+        dibujaFantasma(g, frame.getAzul());
+        dibujaFantasma(g, frame.getRojo());
+        dibujaFantasma(g, frame.getRosa());
     }
     
     /**
@@ -237,7 +239,7 @@ public class ComecocosPanel extends javax.swing.JPanel {
     * @param coco la Figura a dibujar
     * @param el Graphics donde se dibujaría
     */
-    void dibujaCoco(Comecocos coco,java.awt.Graphics g){
+    public void dibujaCoco(Comecocos coco,java.awt.Graphics g){
         if (coco!=null){
             Elemento elemento;
             Laberinto laberinto=frame.getLaberinto();
@@ -252,17 +254,15 @@ public class ComecocosPanel extends javax.swing.JPanel {
                 g.setColor(Color.BLACK);
                 g.drawLine(xoffset + coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda + anchoCelda/2,
                         xoffset + coco.getX()*anchoCelda + anchoCelda, coco.getY()*anchoCelda + anchoCelda/2);
-            }
-            
-            else if(coco.getDireccion() == Comecocos.ABAJO){
+            } else if(coco.getDireccion() == Comecocos.ABAJO){
                 if(coco.getBoca()){
                     g.setColor(Color.BLACK);
                     int xPoints[]={xoffset+coco.getX()*anchoCelda + anchoCelda/2,
-                            xoffset + coco.getX()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda/4,
                             xoffset + coco.getX()*anchoCelda + anchoCelda/2 + anchoCelda/4};
                     int yPoints[]={coco.getY()*anchoCelda + anchoCelda/2,
                             coco.getY()*anchoCelda+anchoCelda,
-                            coco.getY()*anchoCelda+anchoCelda - anchoCelda/6};
+                            coco.getY()*anchoCelda+anchoCelda};
                     g.fillPolygon(xPoints, yPoints, 3);
                     coco.setBoca(false);
                 }else{
@@ -271,9 +271,116 @@ public class ComecocosPanel extends javax.swing.JPanel {
                             xoffset + coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda+anchoCelda);
                     coco.setBoca(true);
                 }
+            } else if(coco.getDireccion() == Comecocos.ARRIBA){
+                if(coco.getBoca()){
+                    g.setColor(Color.BLACK);
+                    int xPoints[]={xoffset+coco.getX()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda/4,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda/2 + anchoCelda/4};
+                    int yPoints[]={coco.getY()*anchoCelda + anchoCelda/2,
+                            coco.getY()*anchoCelda,
+                            coco.getY()*anchoCelda};
+                    g.fillPolygon(xPoints, yPoints, 3);
+                    coco.setBoca(false);
+                }else{
+                    g.setColor(Color.BLACK);
+                    g.drawLine(xoffset+coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda);
+                    coco.setBoca(true);
+                }
+            } else if(coco.getDireccion() == Comecocos.DERECHA){
+                if(coco.getBoca()){
+                    g.setColor(Color.BLACK);
+                    int xPoints[]={xoffset+coco.getX()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda};
+                    int yPoints[]={coco.getY()*anchoCelda + anchoCelda/2,
+                            coco.getY()*anchoCelda + anchoCelda/4,
+                            coco.getY()*anchoCelda + anchoCelda/2 + anchoCelda/4};
+                    g.fillPolygon(xPoints, yPoints, 3);
+                    coco.setBoca(false);
+                }else{
+                    g.setColor(Color.BLACK);
+                    g.drawLine(xoffset+coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda + anchoCelda, coco.getY()*anchoCelda + anchoCelda/2);
+                    coco.setBoca(true);
+                }
+            } else if(coco.getDireccion() == Comecocos.IZQUIERDA){
+                if(coco.getBoca()){
+                    g.setColor(Color.BLACK);
+                    int xPoints[]={xoffset+coco.getX()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda,
+                            xoffset + coco.getX()*anchoCelda};
+                    int yPoints[]={coco.getY()*anchoCelda + anchoCelda/2,
+                            coco.getY()*anchoCelda + anchoCelda/4,
+                            coco.getY()*anchoCelda + anchoCelda/2 + anchoCelda/4};
+                    g.fillPolygon(xPoints, yPoints, 3);
+                    coco.setBoca(false);
+                }else{
+                    g.setColor(Color.BLACK);
+                    g.drawLine(xoffset+coco.getX()*anchoCelda + anchoCelda/2, coco.getY()*anchoCelda + anchoCelda/2,
+                            xoffset + coco.getX()*anchoCelda, coco.getY()*anchoCelda + anchoCelda/2);
+                    coco.setBoca(true);
+                }
             }
                 
                 
+        }
+    }
+    
+    /**
+     * Metodo para dibujar un fantasma
+     * @param g
+     * @param fan 
+     */
+    public void dibujaFantasma(java.awt.Graphics g, Fantasma fan){
+        int xoffset = (getWidth() - frame.getLaberinto().getAnchura() * anchoCelda) / 2;
+        int i=fan.getX();
+        int j=fan.getY();
+
+        if(!frame.getLaberinto().getComestible()){
+            if(fan.getTipo()==Fantasma.AMARILLO)
+                g.setColor(Color.YELLOW);
+            else if(fan.getTipo()==Fantasma.AZUL)
+                g.setColor(Color.BLUE);
+            else if(fan.getTipo()==Fantasma.ROJO)
+                g.setColor(Color.RED);
+            else if(fan.getTipo()==Fantasma.ROSA)
+                g.setColor(Color.PINK);
+                    
+                    
+                    g.fillOval(xoffset + i * anchoCelda, j * anchoCelda, anchoCelda,
+                            anchoCelda);
+                    g.fillRect(xoffset+1 + i * anchoCelda, j * anchoCelda+7, anchoCelda,
+                            anchoCelda/2);
+
+                    g.setColor(Color.WHITE);
+                    g.fillOval(xoffset + i * anchoCelda+8, j * anchoCelda+2, anchoCelda/3,
+                            anchoCelda/3);
+                    g.fillOval(xoffset + i * anchoCelda+2, j * anchoCelda+2, anchoCelda/3,
+                            anchoCelda/3);
+                    g.setColor(Color.BLACK);
+                    g.fillOval(xoffset + i * anchoCelda+10, j * anchoCelda+4, anchoCelda/6,
+                            anchoCelda/6);
+                    g.fillOval(xoffset + i * anchoCelda+4, j * anchoCelda+4, anchoCelda/6,
+                            anchoCelda/6);   
+        } else if(frame.getLaberinto().getComestible()){
+        g.setColor(Color.BLUE);
+                    g.fillOval(xoffset + i * anchoCelda, j * anchoCelda, anchoCelda,
+                            anchoCelda);
+                    g.fillRect(xoffset+1 + i * anchoCelda, j * anchoCelda+7, anchoCelda,
+                            anchoCelda/2);
+
+                    g.setColor(Color.WHITE);
+                    g.fillOval(xoffset + i * anchoCelda+8, j * anchoCelda+2, anchoCelda/3,
+                            anchoCelda/3);
+                    g.fillOval(xoffset + i * anchoCelda+2, j * anchoCelda+2, anchoCelda/3,
+                            anchoCelda/3);
+                    g.setColor(Color.BLACK);
+                    g.fillOval(xoffset + i * anchoCelda+10, j * anchoCelda+4, anchoCelda/6,
+                            anchoCelda/6);
+                    g.fillOval(xoffset + i * anchoCelda+4, j * anchoCelda+4, anchoCelda/6,
+                            anchoCelda/6);
         }
     }
 
@@ -315,16 +422,23 @@ public class ComecocosPanel extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_W) {
             if(!frame.getLaberinto().seChoca(frame.getComecocos(), Comecocos.ARRIBA))
             frame.getComecocos().setDireccion(Comecocos.ARRIBA);
-        } else if (evt.getKeyCode() == KeyEvent.VK_S) {
+        } else if(evt.getKeyCode() == KeyEvent.VK_S) {
             if(!frame.getLaberinto().seChoca(frame.getComecocos(), Comecocos.ABAJO))
             frame.getComecocos().setDireccion(Comecocos.ABAJO);
-        } else if (evt.getKeyCode() == KeyEvent.VK_D) {
+        } else if(evt.getKeyCode() == KeyEvent.VK_D) {
             if(!frame.getLaberinto().seChoca(frame.getComecocos(), Comecocos.DERECHA))
             frame.getComecocos().setDireccion(Comecocos.DERECHA);
-        }else if (evt.getKeyCode() == KeyEvent.VK_A) {
+        }else if(evt.getKeyCode() == KeyEvent.VK_A) {
             if(!frame.getLaberinto().seChoca(frame.getComecocos(), Comecocos.IZQUIERDA))
             frame.getComecocos().setDireccion(Comecocos.IZQUIERDA);
-        } 
+        }
+        
+        if(evt.getKeyCode() == KeyEvent.VK_SPACE) {
+            if(frame.getMueve().getParado() == true)
+                frame.getMueve().reanudar();
+            else
+                frame.getMueve().suspender();
+        }
     }//GEN-LAST:event_keyPressed
 
     private void mouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseEntered
