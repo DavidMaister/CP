@@ -82,6 +82,23 @@ public class Fantasma {
     }
     
     /**
+     * Establece la coordenada x
+     * @param x_ coordenada x
+     */
+    public void setX(int x_){
+        x = x_;
+    }
+    
+    
+    /**
+     * Establece la coordenada y
+     * @param y_ coordenada y
+     */
+    public void setY(int y_){
+        y = y_;
+    }
+    
+    /**
      * Selecciona el tipo de fantasma (De entre los cuatro disponibles)
      * @param t tipo de fantasma.
      */

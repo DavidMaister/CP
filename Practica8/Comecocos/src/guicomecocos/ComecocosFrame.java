@@ -34,10 +34,8 @@ public class ComecocosFrame extends javax.swing.JFrame {
         fantasmaRojo = new Fantasma(Fantasma.ROJO); 
         fantasmaRosa = new Fantasma(Fantasma.ROSA);
 
-
         mueve = new Mueve(this, 1);
-        inicializaJuego();
-        
+        inicializaJuego();       
     }
 
     /**
@@ -51,6 +49,11 @@ public class ComecocosFrame extends javax.swing.JFrame {
 
         comecocosPanel1 = new ComecocosPanel(this);
         Pausa = new javax.swing.JButton();
+        Puntos = new javax.swing.JTextField();
+        Vidas = new javax.swing.JTextField();
+        Nivel = new javax.swing.JTextField();
+        Tiempo = new javax.swing.JTextField();
+        Restante = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         FileMenu = new javax.swing.JMenu();
         NewItem = new javax.swing.JMenuItem();
@@ -58,6 +61,7 @@ public class ComecocosFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 687));
 
         comecocosPanel1.setPreferredSize(new java.awt.Dimension(560, 620));
 
@@ -78,6 +82,16 @@ public class ComecocosFrame extends javax.swing.JFrame {
                 PausaActionPerformed(evt);
             }
         });
+
+        Puntos.setText("Puntos");
+
+        Vidas.setText("Vidas");
+
+        Nivel.setText("Nivel");
+
+        Tiempo.setText("Tiempo");
+
+        Restante.setText("Tiempo restante");
 
         FileMenu.setMnemonic('F');
         FileMenu.setText("File");
@@ -115,12 +129,20 @@ public class ComecocosFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Pausa)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 24, Short.MAX_VALUE)
-                .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Pausa))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Puntos)
+                            .addComponent(Vidas)
+                            .addComponent(Nivel)
+                            .addComponent(Tiempo)
+                            .addComponent(Restante, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,7 +150,18 @@ public class ComecocosFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Pausa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comecocosPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Puntos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Vidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Nivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Tiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Restante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -140,8 +173,11 @@ public class ComecocosFrame extends javax.swing.JFrame {
 
     private void NewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewItemActionPerformed
         laberinto.initRejilla();
+        laberinto.setPuntuacion(0);
+        mueve.terminar();
+        mueve = new Mueve(this, 3);
         inicializaJuego();
-        
+        mueve.suspender();
     }//GEN-LAST:event_NewItemActionPerformed
 
     private void PausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PausaActionPerformed
@@ -149,9 +185,50 @@ public class ComecocosFrame extends javax.swing.JFrame {
                 mueve.reanudar();
             else
                 mueve.suspender();
-        
     }//GEN-LAST:event_PausaActionPerformed
 
+    /**
+     * Método que imprime en el recuadro correspondiente la puntuación actual
+     * @param puntos puntuación inicial
+     */
+    public void setPuntuacion(int puntos){
+        Puntos.setText("Puntos:\n"+puntos);
+    }
+    
+    /**
+     * Método que imprime en el recuadro correspondiente las vidas que quedan
+     * @param vidas vidas actuales
+     */
+    public void setVidas(int vidas){
+        Vidas.setText("Vidas restantes:\n"+vidas);
+    }
+    
+    /**
+     * Método que imprime en el recuadro correspondiente el nivel
+     * @param nivel nivel
+     */
+    public void setNivel(int nivel){
+        Nivel.setText("Nivel:\n"+nivel);
+    }
+    
+    /**
+     * Método que imprime en el recuadro correspondiente el tiempo que ha pasado
+     * desde que empezó la partida.
+     * @param tiempo tiempo desde que empezo el programa
+     */
+    public void setTime(long tiempo){
+        Tiempo.setText("Tiempo total: "+tiempo+" s");
+    }
+    
+    /**
+     * Método que imprime en el recuadro correspondiente el tiempo restante que le
+     * queda alnivel.
+     * @param tiempo tiempo que le queda al nivel
+     */
+    public void setRestante(long tiempo){
+        Restante.setText("Tiempo restante: "+tiempo+" s");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -193,7 +270,7 @@ public class ComecocosFrame extends javax.swing.JFrame {
     * */
     private void inicializaJuego() {
         if(mueve==null){
-            mueve=new Mueve(this,2);
+            mueve=new Mueve(this,3);
         }
         Thread t=new Thread(mueve);
         t.start();
@@ -268,7 +345,12 @@ public class ComecocosFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem ExitItem;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuItem NewItem;
+    private javax.swing.JTextField Nivel;
     private javax.swing.JButton Pausa;
+    private javax.swing.JTextField Puntos;
+    private javax.swing.JTextField Restante;
+    private javax.swing.JTextField Tiempo;
+    private javax.swing.JTextField Vidas;
     private guicomecocos.ComecocosPanel comecocosPanel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

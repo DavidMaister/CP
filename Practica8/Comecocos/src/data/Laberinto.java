@@ -150,11 +150,18 @@ public class Laberinto {
     }
     
     /**
-     * Devuelve el estado actual. (Pac persigue a fan, o fantasmas a pac).
+     * Devuelve el estado actual. (Pac persigue a fantasmas, o fantasmas a pacman).
      * @return true si es estado comestible o false si no
      */
     public boolean getComestible(){
         return comestible;
+    }
+    
+    /**
+     * Establece el estado actual. (Pac persigue a fantasmas, o fantasmas a pacman).
+     */
+    public void setComestible(boolean comestible_){
+        comestible = comestible_;
     }
     
     
@@ -281,6 +288,22 @@ public class Laberinto {
      */
     public void aumentaPuntuacion(int puntos){
         puntuacion = puntuacion + puntos;
+    }
+    
+    /**
+     * Metodo para consultar la puntuacion
+     * @return devuelve la puntuacion hasta el momento
+     */
+    public int getPuntuacion(){
+        return puntuacion;
+    }
+    
+    /**
+     * Metodo para establecer la puntuacion
+     * @param puntos puntos que se desean establecer como puntuacion
+     */
+    public void setPuntuacion(int puntos){
+        puntuacion = puntos;
     }
     
     /**
