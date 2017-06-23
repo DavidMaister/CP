@@ -311,9 +311,9 @@ public class Laberinto {
      * @return devuelve true si se acaba nivel y false si no
      */
     public boolean finNivel(){
-        for(int i=0; i < rejillaInicial.length; i++){
-            for(int j=0; j < rejillaInicial[i].length();j++){
-                if(celdas[i][j] == Laberinto.PEQUENA || celdas[i][j] == Laberinto.GRANDE){
+        for(int t=0; t < rejillaInicial.length; t++){
+            for(int j=0; j < rejillaInicial[t].length();j++){
+                if(celdas[t][j] == Laberinto.PEQUENA || celdas[t][j] == Laberinto.GRANDE){
                     return false;
                 }
             }

@@ -103,7 +103,7 @@ public class Mueve implements Runnable{
                 }
                 
                 //para que vayan saliendo cada poco le añadimos contadores a los fantasmas
-                if(contadorFan < 95 || contadorMuerteAmarillo == 0){
+                if(contadorFan < 95 && contadorMuerteAmarillo == 0){
                     //movemos al amarillo
                     frame.getAmarillo().setDireccion(getDireccionFantasmaChase(frame.getAmarillo()));
                     if(!frame.getLaberinto().seChoca(frame.getAmarillo(), frame.getAmarillo().getDireccion())){
@@ -111,7 +111,7 @@ public class Mueve implements Runnable{
                     }
                 }
                 
-                if(contadorFan < 75 || contadorMuerteAzul == 0){
+                if(contadorFan < 75 && contadorMuerteAzul == 0){
                     //movemos al azul
                     frame.getAzul().setDireccion(getDireccionFantasmaChase(frame.getAzul()));
                     if(!frame.getLaberinto().seChoca(frame.getAzul(), frame.getAzul().getDireccion())){
@@ -119,7 +119,7 @@ public class Mueve implements Runnable{
                     }
                 }
                 
-                if(contadorFan < 50 || contadorMuerteRojo == 0){
+                if(contadorFan < 50 && contadorMuerteRojo == 0){
                     //movemos al rojo
                     frame.getRojo().setDireccion(getDireccionFantasmaRandom(frame.getRojo()));
                     if(!frame.getLaberinto().seChoca(frame.getRojo(), frame.getRojo().getDireccion())){
@@ -127,7 +127,7 @@ public class Mueve implements Runnable{
                     }
                 }
                 
-                if(contadorFan < 25 || contadorMuerteRosa == 0){
+                if(contadorFan < 25 && contadorMuerteRosa == 0){
                     //movemos al rosa
                     frame.getRosa().setDireccion(getDireccionFantasmaRandom(frame.getRosa()));
                     if(!frame.getLaberinto().seChoca(frame.getRosa(), frame.getRosa().getDireccion())){

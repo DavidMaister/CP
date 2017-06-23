@@ -241,7 +241,6 @@ public class ComecocosPanel extends javax.swing.JPanel {
     */
     public void dibujaCoco(Comecocos coco,java.awt.Graphics g){
         if (coco!=null){
-            Elemento elemento;
             Laberinto laberinto=frame.getLaberinto();
             int xoffset=(getWidth()-laberinto.getAnchura()*anchoCelda)/2;
                 
