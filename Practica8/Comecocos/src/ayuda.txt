@@ -1,0 +1,11 @@
+MANUAL DE USO
+-Controla al comecocos con las teclas W(arriba) A(abajo) S(izquierda) D(derecha).
+-Para pausar el juego pulsa la tecla espacio o dale al botón de pausa.
+-Si pasas por encima de una bola grande, pasas a un estado donde puedes
+comer a los fantasmas.
+-El juego se inicia con dos vidas. Se pierda una vida si un fantasma
+te atrapa o si se acaba el tiempo.
+-Si se acaban con todos los puntos pequeños y grandes del mapa se pasa
+al siguiente nivel, cada vez más dificil hasta un maximo de 10. niveles.
+-Cada vez que se empieza una vida, el juego está pausado, por lo que
+ es necesario dale al espacio o al botón de pausa para iniciar la ronda.

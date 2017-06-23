@@ -6,6 +6,16 @@
 package guicomecocos;
 
 import data.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -59,6 +69,8 @@ public class ComecocosFrame extends javax.swing.JFrame {
         NewItem = new javax.swing.JMenuItem();
         ExitItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        Ayuda = new javax.swing.JMenuItem();
+        Record = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 687));
@@ -119,7 +131,28 @@ public class ComecocosFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(FileMenu);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Game");
+
+        Ayuda.setMnemonic('A');
+        Ayuda.setText("Ayuda");
+        Ayuda.setToolTipText("H");
+        Ayuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AyudaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(Ayuda);
+
+        Record.setMnemonic('R');
+        Record.setText("Record");
+        Record.setToolTipText("R");
+        Record.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordActionPerformed(evt);
+            }
+        });
+        jMenu2.add(Record);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -186,6 +219,32 @@ public class ComecocosFrame extends javax.swing.JFrame {
             else
                 mueve.suspender();
     }//GEN-LAST:event_PausaActionPerformed
+
+    private void AyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AyudaActionPerformed
+        try {
+            JTextArea ta = new JTextArea(20, 60);
+            String homeDir = new File(".").getAbsolutePath();
+            homeDir = homeDir.substring(0, homeDir.length() - 1);
+            ta.read(new FileReader(homeDir+"src/ayuda.txt"), null);
+            ta.setEditable(false);
+            JOptionPane.showMessageDialog(null, new JScrollPane(ta));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }//GEN-LAST:event_AyudaActionPerformed
+
+    private void RecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordActionPerformed
+        try {
+            JTextArea ta = new JTextArea(20, 60);
+            String homeDir = new File(".").getAbsolutePath();
+            homeDir = homeDir.substring(0, homeDir.length() - 1);
+            ta.read(new FileReader(homeDir+"record.txt"), null);
+            ta.setEditable(false);
+            JOptionPane.showMessageDialog(null, new JScrollPane(ta));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }//GEN-LAST:event_RecordActionPerformed
 
     /**
      * Método que imprime en el recuadro correspondiente la puntuación actual
@@ -269,6 +328,7 @@ public class ComecocosFrame extends javax.swing.JFrame {
     * el movimiento del comecocos
     * */
     private void inicializaJuego() {
+        System.out.println(new File(".").getAbsolutePath());
         if(mueve==null){
             mueve=new Mueve(this,3);
         }
@@ -277,6 +337,41 @@ public class ComecocosFrame extends javax.swing.JFrame {
         mueve.reanudar();
     }
     
+    public void setRecord(int puntuacion){
+        try {
+            File aux = new java.io.File("recordAux.txt");
+            // Crear el fichero
+            java.io.PrintWriter output = new java.io.PrintWriter(aux);
+            // Escribir salida formateada en el fichero
+            output.println("Record: "+puntuacion);
+       
+            //Creamos objeto File del fichero orginal
+            File fileOriginal = new java.io.File("record.txt");
+            //Scanner para el fichero orginal
+            Scanner input;
+            input = new Scanner(fileOriginal);
+            while (input.hasNext()) {
+                String record = input.next();
+                int puntos = input.nextInt();
+                output.println("Record: "+puntos);
+            }
+            output.close();
+            input.close();
+            output = new java.io.PrintWriter(fileOriginal);
+            input = new Scanner(aux);
+            
+            while (input.hasNext()) {
+                String record = input.next();
+                int puntos = input.nextInt();
+                output.println("Record: "+puntos);
+            }
+            output.close();
+            input.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ComecocosFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Excepcion al establecer record");
+        }
+    }
     /**
     * Obtiene una referencia a la Rejilla del juego
     * @return una referencia a la Rejilla del juego
@@ -342,12 +437,14 @@ public class ComecocosFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Ayuda;
     private javax.swing.JMenuItem ExitItem;
     private javax.swing.JMenu FileMenu;
     private javax.swing.JMenuItem NewItem;
     private javax.swing.JTextField Nivel;
     private javax.swing.JButton Pausa;
     private javax.swing.JTextField Puntos;
+    private javax.swing.JMenuItem Record;
     private javax.swing.JTextField Restante;
     private javax.swing.JTextField Tiempo;
     private javax.swing.JTextField Vidas;

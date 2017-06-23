@@ -70,7 +70,7 @@ public class Mueve implements Runnable{
                               //pudiendo asi dar mas puntos conforme mas fantasmas se comen en
                               //el periodo que dura un comestible
         System.out.println("Empieza run");
-        vidas = 2;
+        vidas = 3;
         
         try {
             while(continuar){
@@ -95,8 +95,11 @@ public class Mueve implements Runnable{
                 
                 //comprobamos si comemos ficha y si era la ultima para actualizar el nivel
                 if(puntosActual > 0 && frame.getLaberinto().finNivel()){
+                    
                     nivelActual++;
                     delay = actualizaRetardo(nivelActual);
+                    //añadimos la puntuacion del tiempo que le resta al nivel
+                    frame.getLaberinto().aumentaPuntuacion((int) (timeRestante * 10));
                 }
                 
                 //para que vayan saliendo cada poco le añadimos contadores a los fantasmas
@@ -245,6 +248,11 @@ public class Mueve implements Runnable{
                 if(vidas == 0){
                     System.out.println("Has perdido la partida.");
                     System.out.println("Puntuacion: "+frame.getLaberinto().getPuntuacion());
+                    try{
+                    frame.setRecord(frame.getLaberinto().getPuntuacion());
+                    } catch(RuntimeException ex){
+                        System.out.println("Error en la llamada a establecer el record");
+                    }
                     terminar();
                 }
                 

@@ -8,8 +8,8 @@ package data;
 import static data.Comecocos.*;
 
 /**
- * Metodo que representa a un fantasma. Sus datos miembro son las coodenadas
- * su estado para saber si es comestible y el tipo de fantasma
+ * Metodo que representa a un fantasma. Sus datos miembro son las coodenadas,
+ * la direccion y el tipo de fantasma
  * @author david
  */
 public class Fantasma {
@@ -23,7 +23,6 @@ public class Fantasma {
     private int y;
     private int tipo;
     private int direccion;
-    private boolean comestible;
     
     public Fantasma(int tipo_){
         x = 6 + tipo_;
